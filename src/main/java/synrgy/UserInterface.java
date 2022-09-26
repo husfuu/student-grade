@@ -27,7 +27,7 @@ public class UserInterface {
         System.out.println("3. Generate both files");
         System.out.print("Choose: ");
         String input = scanner.nextLine();
-        switch (input){
+         switch (input){
             case "1":
                 try {
                     File file = new File();
@@ -35,10 +35,10 @@ public class UserInterface {
                     Data data = new Data(arrayData);
                     HashMap<Double, Double> freq = data.getFreq();
                     file.generatedFreqsTxt(freq);
+                    success(file.getOutPath1());
                 } catch (FileNotFoundException e){
                     fail();
                 }
-                success();
                 break;
             case "2":
                 try {
@@ -49,12 +49,26 @@ public class UserInterface {
                     double median = data.getMedian();
                     double mode = data.getMode();
                     file.generatedStatsTxt(mean, median, mode);
-                    success();
+                    success(file.getOutPath2());
                 }catch (FileNotFoundException e){
                     fail();
                 }
                 break;
             case "3":
+                try{
+                    File file = new File();
+                    List<Double> arrayData = file.getArrayList();
+                    Data data = new Data(arrayData);
+                    HashMap<Double, Double> freq = data.getFreq();
+                    file.generatedFreqsTxt(freq);
+                    double mean = data.getMean();
+                    double median = data.getMedian();
+                    double mode = data.getMode();
+                    file.generatedStatsTxt(mean, median, mode);
+                    success(file.getOutPath1());
+                } catch (FileNotFoundException e) {
+                    fail();
+                }
                 break;
             case "0":
                 scanner.close();
@@ -66,26 +80,26 @@ public class UserInterface {
         }
     }
 
-    public void success(){
+    public void success(String path){
         String ANSI_GREEN_BACKGROUND = "\u001B[42m";
         String ANSI_BLACK_TEXT = "\u001B[30m";
         String ANSI_RESET = "\u001B[0m";
-        System.out.println(ANSI_BLACK_TEXT + ANSI_GREEN_BACKGROUND + "File has been generated in ...." + ANSI_RESET);
+        System.out.println(ANSI_GREEN_BACKGROUND + ANSI_BLACK_TEXT + "File has been generated in " + path + ANSI_RESET);
         header();
-        System.out.println("0. Exit");
         System.out.println("1. Home");
+        System.out.println("0. Exit");
         System.out.print("Choose: ");
         String input = scanner.nextLine();
         switch (input){
-            case "0":
-                scanner.close();
-                break;
             case "1":
                 home();
                 break;
+            case "0":
+                scanner.close();
+                break;
             default:
-                success();
                 alert();
+                success(path);
                 break;
         }
     }
@@ -96,16 +110,16 @@ public class UserInterface {
         String warn = ANSI_RED_BACKGROUND + "fail to generate file ..." + ANSI_RESET;
         System.out.println(warn);
         header();
-        System.out.println("0. Exit");
         System.out.println("1. Home");
+        System.out.println("0. Exit");
         System.out.print("Choose: ");
         String input = scanner.nextLine();
         switch (input){
-            case "0":
-                scanner.close();
-                break;
             case "1":
                 home();
+                break;
+            case "0":
+                scanner.close();
                 break;
             default:
                 fail();
@@ -115,14 +129,10 @@ public class UserInterface {
     }
 
     public void alert(){
+        String ANSI_BLACK_TEXT = "\u001B[30m";
         String ANSI_YELLOW_BG = "\u001B[43m";
         String ANSI_RESET = "\u001B[0m";
-        System.out.println(ANSI_YELLOW_BG + "Please input correctly!" + ANSI_RESET);
-    }
-
-    public void clear(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        System.out.println(ANSI_BLACK_TEXT + ANSI_YELLOW_BG + "Please input correctly!" + ANSI_RESET);
     }
 }
 

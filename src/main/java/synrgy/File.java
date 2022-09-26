@@ -7,25 +7,33 @@ import java.io.*;
 import java.util.*;
 
 public class File {
-    private String filePath;
     private String targetPath;
-
+    private String outPath1;
+    private  String outPath2;
     public File(){
         String absolutePath = new java.io.File("").getAbsolutePath();
-        filePath = absolutePath + "/public/data_sekolah.csv";
-        targetPath = absolutePath + "/public/data_sekolah_output.txt";
+        targetPath = absolutePath + "/public/data/data_sekolah.csv";
+        outPath1 = absolutePath +  "/public/output/freq_out.txt";
+        outPath2 = absolutePath + "/public/output/stat_out.txt";
+//        targetPath = absolutePath + "/public/data_sekolah_output.txt";
     }
 
-    public File(String filePath){
-        this.filePath = filePath;
+    public String getTargetPath() {
+        return targetPath;
     }
 
+    public String getOutPath1(){
+        return outPath1;
+    }
+    public String getOutPath2(){
+        return outPath2;
+    }
     public List<Double> getArrayList() throws FileNotFoundException {
-        String line = "";
+        String line;
         List<List<String>> data = new ArrayList<>();
         List<Double> arrayData = new ArrayList<>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            BufferedReader br = new BufferedReader(new FileReader(targetPath ));
             while ((line = br.readLine()) != null){
                 String[] values = line.split(";");
                 data.add(Arrays.asList(values));
@@ -49,7 +57,7 @@ public class File {
 
     public void generatedStatsTxt(double mean, double median, double mode){
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(targetPath));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outPath2));
             writer.write("Berikut adalah hasil statistic data: \n");
             String[] headers = {"Stats", "Value"};
             String[][] body = {
@@ -66,7 +74,7 @@ public class File {
 
     public void generatedFreqsTxt(HashMap<Double, Double> freqData){
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(targetPath));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outPath1));
 
             String[] headers = {"", "Value", "Frequency"};
 
