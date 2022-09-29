@@ -35,6 +35,19 @@
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
+<!--        <plugin>-->
+<!--          &lt;!&ndash; Build an executable JAR &ndash;&gt;-->
+<!--&lt;!&ndash;          <groupId>org.apache.maven.plugins</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;          <artifactId>maven-jar-plugin</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;          <version>3.1.0</version>&ndash;&gt;-->
+<!--          <configuration>-->
+<!--            <archive>-->
+<!--              <manifest>-->
+<!--                <mainClass>synrgy.App</mainClass>-->
+<!--              </manifest>-->
+<!--            </archive>-->
+<!--          </configuration>-->
+<!--        </plugin>-->
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
@@ -54,8 +67,17 @@
           <version>2.22.1</version>
         </plugin>
         <plugin>
+        <!-- maven JAR -->
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <mainClass>synrgy.App</mainClass>
+              </manifest>
+            </archive>
+          </configuration>
+
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>

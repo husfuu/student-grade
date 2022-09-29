@@ -25,6 +25,7 @@ public class UserInterface {
         System.out.println("1. Generate txt file for frequency");
         System.out.println("2. Generate txt file for mean, media, and mode");
         System.out.println("3. Generate both files");
+        System.out.println("0. Exit");
         System.out.print("Choose: ");
         String input = scanner.nextLine();
          switch (input){
@@ -107,7 +108,8 @@ public class UserInterface {
     public void fail(){
         String ANSI_RED_BACKGROUND = "\u001B[41m";
         String ANSI_RESET = "\u001B[0m";
-        String warn = ANSI_RED_BACKGROUND + "fail to generate file ..." + ANSI_RESET;
+        File file = new File();
+        String warn = ANSI_RED_BACKGROUND + "fail to generate file, you have to put in" + file.getTargetPath() + ANSI_RESET;
         System.out.println(warn);
         header();
         System.out.println("1. Home");
